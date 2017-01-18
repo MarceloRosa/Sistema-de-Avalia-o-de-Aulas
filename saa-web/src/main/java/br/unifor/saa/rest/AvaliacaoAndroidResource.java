@@ -23,6 +23,7 @@ import br.unifor.saa.entity.Turma;
 import br.unifor.saa.entity.Usuario;
 import br.unifor.saa.exceptions.BOException;
 import br.unifor.saa.rest.model.AvaliacaoModel;
+import br.unifor.saa.rest.model.RetornoModel;
 
 @RestController
 @RequestMapping("/avaliacao")
@@ -60,9 +61,9 @@ public class AvaliacaoAndroidResource {
 
 	@RequestMapping(value = "/salvaAvaliacoes", method = { RequestMethod.POST,
 			RequestMethod.PUT }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String salvarAvaliacao(@RequestBody AvaliacaoModel avaliacaoModel) {
-
-		msg = null;
+	public @ResponseBody RetornoModel salvarAvaliacao(@RequestBody AvaliacaoModel avaliacaoModel) {
+        RetornoModel retorno = new RetornoModel();
+        retorno.setRetorno(null);
 		avaliacao = new Avaliacao();
 		aula = aulaBo.buscarPorId(avaliacaoModel.getAulaId());
 		usuario = usuarioBO.buscarPorId(avaliacaoModel.getAlunoId());
@@ -78,7 +79,7 @@ public class AvaliacaoAndroidResource {
 
 		Boolean avaliou = avaliacaoBO.buscarAvaliacaoAulaAluno(aula, usuario);
 		if (avaliou) {
-			msg = "Erro ao Salvar, Aula já avaliada.";
+			retorno.setRetorno("Erro ao Salvar, Aula já avaliada.");
 		} else {
 			try {
 				avaliacaoBO.salvar(avaliacao);
@@ -88,11 +89,11 @@ public class AvaliacaoAndroidResource {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 				// TODO: handle exception
-				msg = "Erro ao salvar! Tente novamente.";
+				retorno.setRetorno("Erro ao salvar! Tente novamente.");
 			}
-			msg = "Avaliação salva com sucesso!";
+			retorno.setRetorno("Avaliação salva com sucesso!");
 		}
-		return msg;
+		return retorno;
 
 	}
 
