@@ -86,6 +86,7 @@ public class AvaliacaoAndroidResource {
 			} catch (BOException e) {
 				e.printStackTrace();
 				msg = e.getMessage();
+				retorno.setRetorno("Erro ao salvar BO! Tente novamente.");
 			} catch (Exception e2) {
 				e2.printStackTrace();
 				// TODO: handle exception
