@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<div id="menu" class="menu">
+	<h:form id="menuForm">
+		<p:tabMenu activeIndex="#{menuManager.option}">
+			<p:menuitem value="#{messages['menu.avaliar']}" action="#{menuMB.actionMenu(0)}"
+				icon="ui-icon-star" />
+			<!-- <p:menuitem value="#{messages['menu.acompanhar']}" action="#{menuMB.actionMenu(1)}"
+				icon="ui-icon-search" /> -->
+			<p:menuitem value="#{messages['menu.sair']}" icon="ui-icon-close" action="#{menuMB.actionMenu(4)}" />
+		</p:tabMenu>
+		</h:form>
+	</div>
+</f:view>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_login.xhtml">
+	<ui:define name="metatag"><meta http-equiv="refresh" content="2; URL=login.jsf"/></ui:define>
+	
+	<ui:define name="content">
+		<h:form id="formLogin">
+
+			<div id="formLogin:messages" class="ui-messages ui-widget"
+				aria-live="polite">
+				<div class="ui-messages-error ui-corner-all">
+					<a href="#" class="ui-messages-close"
+						onclick="$(this).parent().slideUp();return false;"><span
+						class="ui-icon ui-icon-close"></span></a><span
+						class="ui-messages-error-icon"></span>
+					<ul>
+						<li><span class="ui-messages-error-summary">Fatal:</span><span
+							class="ui-messages-error-detail">Acesso Negado!</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<h:panelGrid columns="3" styleClass="panelgridlogin">
+
+				<h:outputLabel value="Login:" />
+				<p:inputText id="email" value="#{login.usuario.email}" readonly="true" disabled="true"
+					required="true" requiredMessage="Campo Obrigatório" />
+				<p:message for="email" />
+
+				<h:outputLabel value="Senha:" />
+				<p:password id="senha" value="#{login.usuario.senha}" readonly="true" disabled="true"
+					required="true" requiredMessage="Campo Obrigatório" />
+				<p:message for="senha" />
+
+				<p:commandButton value="Entrar" disabled="true" />
+				<p:commandLink value="Cadastrar-se" disabled="true"/>
+				<p:outputLabel value="" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

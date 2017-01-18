@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+
+		<h:form id="formCadTurma">
+			<div class="panel panel-default">
+				<div class="panel-heading">Cadastrar Turma</div>
+				<div class="panel-body">
+
+					<div style="auto: 0;">
+						<div class="form-group">
+							<h:outputLabel id="lbTurma"
+								value="#{messages['cadTurma.lb_turma']}" for="disciplina" />
+							<h:inputText id="disciplina" styleClass="form-control"
+								x:placeholder="Nome da Turma"
+								value="#{cadTurmaManager.disciplina}" required="true"
+								requiredMessage="#{messages['msg.required']}" maxlength="255" />
+							<p:message for="disciplina" />
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="lbDescricao"
+								value="#{messages['cadTurma.lb_descricao']}" for="descricao" />
+							<p:inputTextarea id="descricao"
+								x:placeholder="Descrição da Turma"
+								value="#{cadTurmaManager.descricao}" required="true"
+								styleClass="form-control"
+								requiredMessage="#{messages['msg.required']}" />
+							<p:message for="descricao" />
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="lbInst"
+								value="#{messages['cadTurma.lb_instituicao']}" for="inst" />
+							<p:inputText id="inst" value="#{cadTurmaManager.instituicao}"
+								styleClass="form-control" required="true"
+								requiredMessage="#{messages['msg.required']}" maxlength="255"
+								x:placeholder="Nome da Instituição" />
+							<p:message for="inst" />
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="lbSem"
+								value="#{messages['cadTurma.lb_semestre']}" for="semestre" />
+							<p:inputText id="semestre" value="#{cadTurmaManager.semestre}"
+								styleClass="form-control" required="true"
+								requiredMessage="#{messages['msg.required']}" maxlength="255"
+								x:placeholder="Semetre" />
+							<p:message for="semestre" />
+						</div>
+
+						<div class="form-group" >
+							<h:outputLabel id="lbAluno"
+								value="#{messages['cadTurma.lb_alunos']}" for="alunos" />
+							<BR />
+							<p:autoComplete id="alunos" multiple="true"
+								value="#{cadTurmaManager.alunos}" minQueryLength="3"
+								completeMethod="#{cadTurmaManager.completeAluno}" var="aluno"
+								itemLabel="#{aluno.nomeEmail}" itemValue="#{aluno}"
+								converter="#{alunoConverter}" forceSelection="true"
+								required="true" 
+								requiredMessage="#{messages['msg.required']}" >
+								
+								<p:column style="width:10%">
+									<h:outputText styleClass="ui-theme ui-theme-#{aluno.nomeEmail}" />
+								</p:column>
+
+								<p:column>
+									<h:outputText value="#{aluno.nomeEmail}" />
+								</p:column>
+							</p:autoComplete>
+							
+							<p:message for="alunos" />
+						</div>
+						<h:panelGrid id="gridButtons" styleClass="panelgrid" columns="4">
+							<div class="form-group">
+								<h:commandButton styleClass="btn btn-primary"
+									value="#{messages['cadTurma.bt_confirmar']}"
+									action="#{cadTurmaManager.salvar}" />
+							</div>
+							<div class="form-group" style="margin-right: 30px;">
+								<h:commandButton styleClass="btn btn-default"
+									action="#{listaTurmaManager.preparaListTurma}" immediate="true"
+									value="#{messages['cadTurma.bt_cancelar']}" />
+							</div>
+						</h:panelGrid>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

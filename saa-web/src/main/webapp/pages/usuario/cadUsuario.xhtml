@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>SAA</title>
+	<link href="#{resource['imgs/icone-avaliacoes.png']}"
+		rel="shortcut icon" type="image/x-icon" />
+	<h:outputStylesheet name="css/bootstrap.css" />
+	<h:outputStylesheet name="css/templateCustomize.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+<h:body>
+	<p:messages id="messages" showDetail="true" closable="true" />
+	<h:form id="formCadUsuario">
+		<!-- Painel Login -->
+		<div class="container">
+			<div class="form-group">
+				<h:outputLabel id="labelTipo" value="#{messages['cadUsuario.tipo']}"
+					for="tipo" />
+				<h:selectOneMenu id="tipo" value="#{cadUsuarioManager.tipoPapel}"
+					styleClass="form-control" required="true"
+					requiredMessage="#{messages['msg.required']}">
+					<f:selectItem itemLabel="Professor" itemValue="#{'PROFESSOR'}" />
+					<f:selectItem itemLabel="Aluno" itemValue="#{'ALUNO'}" />
+				</h:selectOneMenu>
+				<p:message for="tipo" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel id="labelNome" value="#{messages['cadUsuario.nome']}"
+					for="nome" />
+				<h:inputText id="nome" value="#{cadUsuarioManager.nome}"
+					styleClass="form-control" required="true"
+					requiredMessage="#{messages['msg.required']}"
+					x:placeholder="Nome do Usuário" maxlength="255" />
+				<p:message for="nome" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel id="labelEmail"
+					value="#{messages['cadUsuario.email']}" for="email" />
+				<h:inputText id="email" value="#{cadUsuarioManager.email}"
+					required="true" requiredMessage="#{messages['msg.required']}"
+					x:placeholder="Email do Usuário (saa@saa.com.br)" maxlength="255"
+					styleClass="form-control" />
+				<p:message for="email" />
+			</div>
+
+			<h:commandButton value="#{messages['cadUsuario.bt_salvar']}"
+				action="#{cadUsuarioManager.salvar}" ajax="false"
+				styleClass="btn btn-primary btn-block" />
+			<h:commandButton value="#{messages['cadUsuario.bt_voltar']}"
+				styleClass="btn btn-default btn-block"
+				action="#{cadUsuarioManager.voltar}" immediate="true" />
+		</div>
+
+	</h:form>
+	<div id="footer">
+		<ui:insert name="footer">
+			<ui:include src="/templates/footer.xhtml" />
+		</ui:insert>
+	</div>
+</h:body>
+</html>

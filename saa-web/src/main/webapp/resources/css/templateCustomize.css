@@ -1,0 +1,55 @@
+body {
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+
+.panelgrid {
+	margin: 0 auto;
+}
+
+#footer {
+	margin-top: 30px;
+	position: relative;
+}
+
+.footer-text {
+	position: absolute;
+	left: 52%;
+	top: 30%;
+	margin-left: -300px;
+	font-size: 11px;
+	line-height: 16px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256, 256, 256, 1.0);
+}
+
+.aula {
+	padding-top: 20px;
+}
+
+.table-responsive.foo {
+	overflow-x: visible !important;
+	overflow-y: visible !important;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+	padding: 4px 10px !important;
+	border-width: 1px !important;
+	overflow: visible !important;
+	border-style: solid !important;
+}
+
+.ui-widget {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-size: 1em !important;
+}
+
+div[role="row"] {
+	padding-left: 0px;
+}
+
+.ui-datatable-tablewrapper {
+    overflow: visible !important;
+}

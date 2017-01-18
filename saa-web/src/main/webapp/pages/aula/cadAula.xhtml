@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+
+		<h:form id="formCadAula">
+			<div class="panel panel-default">
+				<div class="panel-heading">Cadastrar Aula</div>
+				<div class="panel-body">
+
+
+					<div class="form-group">
+						<h:form id="detalheDisciplina" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_disciplina']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{cadAulaManager.aula.turma.descricao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheSemestre" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_semestre']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value=" #{cadAulaManager.aula.turma.semestre}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+
+						<h:form id="detalheInstituicao" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_instituicao']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{cadAulaManager.aula.turma.instituicao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheProfessor" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_professor']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:commandLink>
+								<h:outputText
+									value="#{cadAulaManager.aula.turma.professor.nome}"
+									style="font-size: 1.2em; color:#5E5E5E;" />
+							</h:commandLink>
+						</h:form>
+					</div>
+
+					<div style="auto: 0;">
+						<div class="form-group">
+							<h:outputLabel id="lbDescricao"
+								value="#{messages['cadAula.lb_descricao']}" for="descricao" />
+							<h:inputTextarea id="descricao" x:placeholder="Conteúdo da Aula"
+								value="#{cadAulaManager.aula.descricao}" required="true"
+								styleClass="form-control"
+								requiredMessage="#{messages['msg.required']}" />
+							<p:message for="descricao" />
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="lbDtAula"
+								value="#{messages['cadAula.lb_dataAula']}" for="dtAula" />
+							<BR />
+							<p:calendar id="dtAula" value="#{cadAulaManager.aula.dataAula}"
+								required="true" requiredMessage="#{messages['msg.required']}"
+								pattern="dd/MM/yyyy" mask="true" x:placeholder="Data da Aula" />
+							<p:message for="dtAula" />
+						</div>
+
+						<h:panelGrid id="gridButtons" styleClass="panelgrid" columns="4">
+							<div class="form-group">
+								<h:commandButton styleClass="btn btn-primary"
+									value="#{messages['cadAula.bt_confirmar']}"
+									action="#{cadAulaManager.salvar}" />
+							</div>
+							<div class="form-group" style="margin-right: 30px;">
+								<h:commandButton styleClass="btn btn-default"
+									action="#{detalharTurmaManager.preparaDetalhar(cadAulaManager.aula.turma)}"
+									immediate="true" value="#{messages['cadAula.bt_cancelar']}" />
+							</div>
+						</h:panelGrid>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

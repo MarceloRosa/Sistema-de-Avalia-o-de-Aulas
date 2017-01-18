@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<f:view>
+		<h:form id="formAddAluno">
+			<!-- Painel Login -->
+			<div class="form-group">
+				<h:outputLabel id="lbAluno"
+					value="#{messages['cadTurma.lb_alunos']}" for="alunos" />
+				<p:autoComplete id="alunos" multiple="true"
+					value="#{cadTurmaManager.alunos}" minQueryLength="3"
+					completeMethod="#{cadTurmaManager.completeAluno}" var="aluno"
+					itemLabel="#{aluno.nomeEmail}" itemValue="#{aluno}"
+					converter="#{alunoConverter}" forceSelection="true">
+					<p:column style="width:10%">
+						<h:outputText styleClass="ui-theme ui-theme-#{aluno.nomeEmail}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{aluno.nomeEmail}" />
+					</p:column>
+				</p:autoComplete>
+			</div>
+		</h:form>
+	</f:view>
+</ui:fragment>

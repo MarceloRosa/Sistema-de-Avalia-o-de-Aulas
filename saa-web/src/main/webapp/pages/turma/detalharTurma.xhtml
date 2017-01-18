@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+		<h:form id="detalharTurmaForm">
+			<div role="row" class="container-fluid">
+				<div role="main" class="col-md-10">
+					<div class="form-group">
+						<h:form id="detalheDisciplina" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_disciplina']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{detalharTurmaManager.turma.descricao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheSemestre" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_semestre']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value=" #{detalharTurmaManager.turma.semestre}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheInstituicao" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_instituicao']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{detalharTurmaManager.turma.instituicao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheProfessor" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_professor']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+								<h:outputText
+									value="#{detalharTurmaManager.turma.professor.nome}"
+									style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+					</div>
+					<div class="table-responsive foo">
+						<h:commandButton id="btNewTurma" styleClass="btn btn-primary"
+							value="#{messages['detalharTurma.bt_novaAula']}"
+							rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+							action="#{cadAulaManager.preparaCadAula(detalharTurmaManager.turma)}" />
+
+						<p:contextMenu for="aulatb">
+							<p:menuitem value="Moderar" icon="ui-icon-pencil"
+								rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+								action="#{moderarAulaManager.preparaModerarAula(detalharTurmaManager.aulaSelecionada)}" />
+							<p:menuitem value="Excluir" update="aulatb" icon="ui-icon-close"
+								rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+								onclick="if (!confirm('Confirma exclusão da aula?'))" />
+							<p:menuitem value="Avaliar" icon="ui-icon-pencil"
+								rendered="#{segurancaTO.usuario.maxPapel == 'ALUNO'}"
+								action="#{avaliaAulaManager.preparaAvaliaAula(detalharTurmaManager.aulaSelecionada)}" />
+							<p:menuitem value="Timeline" icon="ui-icon-pencil"
+								rendered="#{segurancaTO.usuario.maxPapel == 'ALUNO'}"
+								action="#{timeLineManager.preparaTimeline(detalharTurmaManager.aulaSelecionada)}" />
+						</p:contextMenu>
+						<p:dataTable id="aulatb" var="aula"
+							value="#{detalharTurmaManager.aulas}"
+							styleClass="table table_responsive" reflow="true" rows="5"
+							paginator="true" paginatorPosition="bottom" rowKey="#{aula.id}"
+							selection="#{detalharTurmaManager.aulaSelecionada}"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							selectionMode="single" lazy="true" 
+							emptyMessage="#{messages['detalharTurma.msg_aulanaocadastrada']}">
+							<p:column style="width:5%; text-align: center;" headerText="Aula">
+								<h:outputText value="#{aula.sequencia}" style="center" />
+							</p:column>
+							<p:column style="width:65%;" headerText="Descrição">
+								<h:outputText value="#{aula.descricao}" style="center" />
+							</p:column>
+							<p:column style="width:15%;text-align: center" headerText="Data">
+								<h:outputText value="#{aula.dataAula}" style="center">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:15%;text-align: center;"
+								headerText="Media"
+								rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}">
+								<h:outputText value="#{aula.media}" style="center" >
+								<f:convertNumber pattern="#0.00" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</div>
+					<div class="checkbox">
+						<label> <h:selectBooleanCheckbox
+								rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+								value="#{detalharTurmaManager.turma.ativo}" /> <h:outputText
+								rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+								value="Turma Ativa" />
+						</label>
+					</div>
+					<p:chart
+						rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR' and detalharTurmaManager.animatedModel != null}"
+						type="line" model="#{detalharTurmaManager.animatedModel}"
+						style="height:400px;" responsive="true" />
+				</div>
+				<aside role="complementary" class="col-md-2">
+					<p:contextMenu for="alunostb">
+						<p:menuitem value="Visualizar" icon="ui-icon-search" />
+						<p:menuitem value="Excluir" update="alunostb" icon="ui-icon-close"
+							actionListener="#{detalharTurmaManager.excluirAluno}"
+							onclick="if (!confirm('Confirma exclusão do aluno?'))"
+							rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}" />
+					</p:contextMenu>
+					<p:dataTable id="alunostb" var="aluno"
+						value="#{detalharTurmaManager.turma.alunos}" rowKey="#{aluno.id}"
+						selection="#{detalharTurmaManager.alunoSelecionado}"
+						emptyMessage="Nenhum aluno cadastrado." selectionMode="single"
+						style="margin-top: 15px;">
+						<p:column>
+							<f:facet name="header">
+								<h:commandLink value="Alunos" style="float: left;">
+									<span class="badge"><h:outputText
+											value="#{detalharTurmaManager.alunoSize}" /></span>
+								</h:commandLink>
+								<p:commandButton
+									rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+									value="Novo" styleClass="btn btn-primary btn-sm"
+									style="margin-right: 10px; float: right; padding: 0px;"
+									onclick="PF('panel1').show();" />
+							</f:facet>
+							<h:outputText value="#{aluno.email}" />
+						</p:column>
+					</p:dataTable>
+					<!-- Modal -->
+					<p:dialog header="Adicionar Aluno" widgetVar="panel1"
+						resizable="false" responsive="true" focus="alunos">
+						<div class="form-group">
+							<h:panelGrid columns="1">
+								<h:outputLabel id="lbAluno"
+									value="#{messages['cadTurma.lb_alunos']}" for="alunos" />
+								<p:autoComplete id="alunos" multiple="true"
+									value="#{detalharTurmaManager.alunos}" minQueryLength="3"
+									completeMethod="#{detalharTurmaManager.completeAluno}"
+									var="aluno" itemLabel="#{aluno.nomeEmail}" itemValue="#{aluno}"
+									converter="#{alunoConverter}" forceSelection="true">
+									<p:column style="width:10%">
+										<h:outputText
+											styleClass="ui-theme ui-theme-#{aluno.nomeEmail}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{aluno.nomeEmail}" />
+									</p:column>
+								</p:autoComplete>
+							</h:panelGrid>
+						</div>
+						<f:facet name="footer">
+							<h:panelGrid id="gridButtons"
+								style="margin-bottom: 10px; float: right" styleClass="panelgrid"
+								columns="4">
+								<div class="form-group">
+									<h:commandButton styleClass="btn btn-default" value="Adicionar"
+										action="#{detalharTurmaManager.adicionaAlunos}" />
+								</div>
+								<div class="form-group" style="margin-right: 30px;">
+									<h:commandButton styleClass="btn btn-primary"
+										onclick="PF('panel1').hide();" value="Cancelar" />
+								</div>
+							</h:panelGrid>
+							<br />
+						</f:facet>
+					</p:dialog>
+				</aside>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

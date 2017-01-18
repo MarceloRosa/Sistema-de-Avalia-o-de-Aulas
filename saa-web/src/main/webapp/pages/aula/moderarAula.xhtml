@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+
+		<h:form id="formModerarAula">
+			<!-- Painel Login -->
+			<h:panelGrid id="gridUser" styleClass="panelgrid" columns="1">
+
+				<div class="form-group">
+					<h:form id="cabecalhos" styleClass="form-inline">
+					<h:form id="detalheDisciplina" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_disciplina']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:outputText value="#{moderarAulaManager.aula.turma.descricao}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+					</h:form>
+					<h:form id="detalheSemestre" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_semestre']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value=" #{moderarAulaManager.aula.turma.semestre}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+					<h:form id="detalheInstituicao" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_instituicao']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:outputText value="#{moderarAulaManager.aula.turma.instituicao}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+					</h:form>
+					<h:form id="detalheProfessor" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_professor']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:commandLink>
+							<h:outputText
+								value="#{moderarAulaManager.aula.turma.professor.nome}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:commandLink>
+					</h:form>
+
+					<h:form id="detalheAula" styleClass="form-inline">
+						<h:outputText value="#{messages['moderarAula.lb_aula']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:commandLink>
+							<h:outputText value="#{moderarAulaManager.aula.sequencia}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+							<h:outputText value=" - #{moderarAulaManager.aula.descricao} - "
+								style="font-size: 1.2em; color:#5E5E5E;" />
+							<h:outputText value="#{moderarAulaManager.aula.media}"
+								style="font-size: 1.2em; color:#5E5E5E; text-align:center;">
+								<f:convertNumber pattern="#0.00" />
+								</h:outputText>
+						</h:commandLink>
+					</h:form>
+					
+					</h:form>
+				</div>
+
+				<p:contextMenu for="avaliacoestb">
+					<p:menuitem value="#{messages['moderarAula.lb_publicar']}"
+						update="avaliacoestb, timelinetb" icon="ui-icon-unlocked"
+						actionListener="#{moderarAulaManager.publicar}"
+						onclick="if (!confirm('Confirma publicação do comentário?')) return false" />
+					<p:menuitem value="Detalhar" icon="ui-icon-comment" />
+				</p:contextMenu>
+
+				<p:dataTable id="avaliacoestb" var="avaliacao"
+					value="#{moderarAulaManager.avaliacoesPendentes}"
+					style="margin-top: 30px;" styleClass="table table_responsive"
+					reflow="true" rows="5" paginator="true" paginatorPosition="bottom"
+					rowKey="#{avaliacao.id}" selectionMode="single"
+					selection="#{moderarAulaManager.avaliacaoSelecionada}"
+					rendered="#{moderarAulaManager.aula.turma.moderar}"
+					emptyMessage="#{messages['moderarAula.lb_listaVazia']}">
+
+					<p:column style="width:65%;"
+						headerText="#{messages['moderarAula.lb_comentario_aval']}">
+						<h:outputText value="#{avaliacao.comentario}" style="center" />
+					</p:column>
+
+					<p:column style="width:5%; text-align:center;"
+						headerText="#{messages['moderarAula.lb_nota']}">
+						<h:outputText value="#{avaliacao.pontuacao}" />
+					</p:column>
+
+					<p:column style="width:15%;text-align: center;"
+						headerText="#{messages['moderarAula.lb_aluno']}">
+						<h:outputText value="#{avaliacao.anonimo==true?'Anônimo':avaliacao.aluno.nome}" style="center">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
+				
+<!-- 				<p:chart type="metergauge" model="#{moderarAulaManager.meterGaugeModel2}" style="width:400px;height:250px" /> -->
+				
+				<p:contextMenu for="timelinetb">
+					<p:menuitem value="#{messages['moderarAula.lb_despublicar']}"
+						update="avaliacoestb, timelinetb" icon="ui-icon-unlocked" rendered="#{moderarAulaManager.aula.turma.moderar}"
+						actionListener="#{moderarAulaManager.remover()}"
+						onclick="if (!confirm('Confirma remoção do comentário?')) return false" />
+					<p:menuitem value="Detalhar" icon="ui-icon-comment" />
+				</p:contextMenu>
+
+				<p:dataTable id="timelinetb" var="avaliacao"
+					value="#{moderarAulaManager.timeLine}"
+					style="margin-top: 30px;" styleClass="table table_responsive"
+					reflow="true" rows="5" paginator="true" paginatorPosition="bottom"
+					rowKey="#{avaliacao.id}" selectionMode="single"
+					selection="#{moderarAulaManager.itemTimeLineSelecionada}"
+					rendered="#{moderarAulaManager.aula.turma.moderar}"
+					emptyMessage="#{messages['moderarAula.lb_listaVazia']}">
+
+					<p:column style="width:65%;"
+						headerText="#{messages['moderarAula.lb_timeLine']}">
+						<h:outputText value="#{avaliacao.comentario}" style="center" />
+					</p:column>
+
+					<p:column style="width:5%; text-align:center;"
+						headerText="#{messages['moderarAula.lb_nota']}">
+						<h:outputText value="#{avaliacao.pontuacao}" style="center" />
+					</p:column>
+
+					<p:column style="width:15%;text-align: center;"
+						headerText="#{messages['moderarAula.lb_aluno']}">
+						<h:outputText value="#{avaliacao.anonimo==true?'Anônimo':avaliacao.aluno.nome}" style="center">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
+
+			</h:panelGrid>
+			<br />
+			<h:panelGrid id="gridButtons" styleClass="panelgrid" columns="5">
+				<div class="checkbox">
+					<label> <h:selectBooleanCheckbox
+							value="#{moderarAulaManager.aula.ativo}" /> <h:outputText
+							rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+							value="Aula Ativa" />
+					</label>
+				</div>
+				<h:commandButton styleClass="btn btn-primary"
+					style="margin-left: 30px;"
+					action="#{detalharTurmaManager.preparaDetalhar(moderarAulaManager.aula.turma)}"
+					value="Cancelar" />
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

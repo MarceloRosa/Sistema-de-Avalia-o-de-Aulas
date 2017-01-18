@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+
+@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight:300;
+	text-align: left;
+	text-decoration: none;
+	height: 500px;
+}
+.ui-datatable .ui-paginator, .ui-datatable .ui-paginator {
+    padding: 0px!important;
+}
+
+.topo{
+	height: 120px;
+	border-bottom: 3px solid #d4dedf;
+	background: #d4dedf;
+	text-align: center;
+	color: black;
+	margin: 0;
+	margin-top: -8px;
+	padding: 0;
+}
+
+.topo h2{
+	font-family: 'Bree Serif', serif;
+	line-height: 115px;
+	font-size: 40px;
+	letter-spacing: -2px;
+	margin-top: 0;
+}
+
+#content {
+	min-height: 380px;
+	font-size: 120%;
+	width: 100%;
+	margin-left: 0 auto;
+	margin-right: 20px !important;
+}
+
+#footer{
+	position: relative;
+}
+
+.ui-state-default{
+	padding: 0px;
+}
+
+.footer-text{
+	position: absolute;
+	left: 52%;
+	top: 30%;
+	margin-left: -300px;
+	font-size: 11px;
+	line-height: 16px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}

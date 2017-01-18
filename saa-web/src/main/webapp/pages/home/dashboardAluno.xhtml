@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+		<h:form id="detalharForm">
+			<p:contextMenu for="detalhaTurmaTab">
+				<p:menuitem value="Detalhar" icon="ui-icon-search"
+					action="#{detalharTurmaManager.preparaDetalhar}" />
+			</p:contextMenu>
+			<p:dataTable id="detalhaTurmaTab" var="turma"
+				value="#{dashboardAlunoManager.turmaDataModel}"
+				styleClass="table table_responsive" rows="5" paginator="true"
+				paginatorPosition="bottom" rowKey="#{turma.id}"
+				selection="#{detalharTurmaManager.turma}"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				selectionMode="single" lazy="true"
+				emptyMessage="#{messages['dashboardAluno.msg_turmanaocadastrada']}">
+				<p:ajax event="rowSelect"
+					listener="#{dashboardAlunoManager.onRowSelect}" />
+				<p:ajax event="rowUnselect"
+					listener="#{dashboardAlunoManager.onRowUnselect}" />
+				<p:column style="width:80%;" headerText="Turma">
+					<h:outputText value="#{turma.disciplina}" style="center" />
+				</p:column>
+				<p:column style="width:30%;" headerText="Professor">
+					<h:outputText value="#{turma.professor.nome}" style="center" />
+				</p:column>
+				<p:column style="width:30%;" headerText="Semestre">
+					<h:outputText value="#{turma.semestre}" style="center" />
+				</p:column>
+				<!-- <p:column style="width:20%; center;" headerText="Info">
+					<div class="span7 text-center">
+						<h:commandButton id="detalhar" value="Detalhar"
+							action="#{detalharTurmaManager.preparaDetalhar}"
+							styleClass="btn btn-primary btn-xs">
+						</h:commandButton>
+					</div>
+				</p:column> -->
+			</p:dataTable>
+			<p:dataTable var="avaliacao"
+				value="#{dashboardAlunoManager.avaliacoes}" 
+				styleClass="table table_responsive" rows="5" paginator="true" 
+				paginatorPosition="bottom"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				emptyMessage="Nenhuma avaliação realizada.">
+				<p:column style="width:80%;" headerText="Meus Comentários">
+					<h:outputText value="#{avaliacao.comentario}" style="center" />
+				</p:column>
+				<p:column style="width:20%;text-align: center;" headerText="Pontuação">
+					<h:outputText value="#{avaliacao.pontuacao}" style="center" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

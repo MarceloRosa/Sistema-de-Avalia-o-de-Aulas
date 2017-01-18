@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+
+		<h:form id="formAvaliaAula">
+			<div class="panel panel-default">
+				<div class="panel-heading">Avaliar Aula</div>
+				<div class="panel-body">
+
+					<!-- Informações de aula -->
+					<div class="form-group">
+						<h:form id="detalheDisciplina" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_disciplina']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{avaliaAulaManager.aula.turma.descricao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheSemestre" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_semestre']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value=" #{avaliaAulaManager.aula.turma.semestre}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+
+						<h:form id="detalheInstituicao" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_instituicao']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{avaliaAulaManager.aula.turma.instituicao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheProfessor" styleClass="form-inline">
+							<h:outputText value="#{messages['listaTurma.col_professor']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText
+								value="#{avaliaAulaManager.aula.turma.professor.nome}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+						<h:form id="detalheAula" styleClass="form-inline">
+							<h:outputText value="#{messages['moderarAula.lb_aula']}: "
+								style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+							<h:outputText value="#{avaliaAulaManager.aula.sequencia}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+							<h:outputText value=" - #{avaliaAulaManager.aula.descricao}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+							<h:outputText value=" - #{avaliaAulaManager.aula.dataAula}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:form>
+					</div>
+
+					<!-- <div class="form-group">
+					<h:outputLabel id="lbDtAula"
+						value="#{messages['cadAula.lb_dataAula']}" for="dtAula" />
+					<p:calendar id="dtAula" value="#{avaliaAulaManager.aula.dataAula}"
+						pattern="dd/MM/yyyy" mask="true" x:placeholder="Data da Aula"/>
+					<p:message for="dtAula" />
+				</div> -->
+
+
+					<div style="auto: 0;">
+						<!-- Avaliacao aula -->
+						<div class="form-group">
+							<h:outputLabel id="lbSuaNota" value="Sua nota: " for="suanota" />
+							<p:rating id="suanota"
+								value="#{avaliaAulaManager.avaliacao.pontuacao}" required="true"
+								requiredMessage="#{messages['msg.required']}" cancel="false" />
+							<p:message for="suanota" />
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="lbDescricao"
+								value="#{messages['cadAula.lb_descricao']}" for="descricao" />
+							<h:inputTextarea id="descricao"
+								value="#{avaliaAulaManager.avaliacao.comentario}"
+								required="true" styleClass="form-control"
+								requiredMessage="#{messages['msg.required']}" />
+							<p:message for="descricao" />
+						</div>
+						<br />
+						<div class="checkbox">
+							<label> <h:selectBooleanCheckbox
+									value="#{avaliaAulaManager.avaliacao.anonimo}" /> <h:outputText
+									value="Avaliação Anônima" />
+							</label>
+						</div>
+						<h:panelGrid id="gridButtons" styleClass="panelgrid" columns="5">
+							<div class="form-group">
+								<h:commandButton styleClass="btn btn-primary"
+									value="#{messages['avaliaAula.bt_confirmar']}"
+									action="#{avaliaAulaManager.salvar}" />
+							</div>
+							<div class="form-group" style="margin-right: 30px;">
+								<h:commandButton styleClass="btn btn-default"
+									action="#{detalharTurmaManager.preparaDetalhar}"
+									immediate="true" value="#{messages['avaliaAula.bt_cancelar']}" />
+							</div>
+						</h:panelGrid>
+					</div>
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

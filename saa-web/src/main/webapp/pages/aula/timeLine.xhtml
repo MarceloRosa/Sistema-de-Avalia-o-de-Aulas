@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/templateNew.xhtml">
+	<ui:define name="content">
+
+		<h:form id="timeLineForm">
+			<!-- Painel Login -->
+			<h:panelGrid id="gridUser" styleClass="panelgrid" columns="1">
+				<div class="form-group">
+					<h:form id="detalheDisciplina" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_disciplina']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:outputText value="#{timeLineManager.aula.turma.descricao}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+					</h:form>
+					<h:form id="detalheSemestre" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_semestre']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:outputText value=" #{timeLineManager.aula.turma.semestre}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+					</h:form>
+					<h:form id="detalheInstituicao" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_instituicao']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:outputText value="#{timeLineManager.aula.turma.instituicao}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+					</h:form>
+					<h:form id="detalheProfessor" styleClass="form-inline">
+						<h:outputText value="#{messages['listaTurma.col_professor']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:commandLink>
+							<h:outputText
+								value="#{timeLineManager.aula.turma.professor.nome}"
+								style="font-size: 1.2em; color:#5E5E5E;" />
+						</h:commandLink>
+					</h:form>
+					<h:form id="detalheAula" styleClass="form-inline">
+						<h:outputText value="#{messages['moderarAula.lb_aula']}: "
+							style="font-size: 1.2em; color:#5E5E5E; font-weight: bold;" />
+						<h:outputText value="#{timeLineManager.aula.sequencia}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+						<h:outputText value=" - #{timeLineManager.aula.descricao}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+						<h:outputText value=" - #{timeLineManager.aula.dataAula}"
+							style="font-size: 1.2em; color:#5E5E5E;" />
+					</h:form>
+				</div>
+			</h:panelGrid>
+			<div class="form-group">
+				<h:outputLabel value="Sua nota: " />
+				<p:rating value="#{timeLineManager.avaliacao.pontuacao}"
+					readonly="true" />
+			</div>
+
+			<div class="form-group">
+				<h:outputLabel value="Média das avaliações: " />
+				<h:outputText value="#{timeLineManager.aula.media}"
+					style="font-size: 1.2em; color:#5E5E5E;" />
+			</div>
+
+			<!-- ALTERAR -->
+			<div class="table-responsive foo">
+				<p:contextMenu for="tableavaliacoes">
+					<p:menuitem value="Detalhar" icon="ui-icon-pencil"
+						oncomplete="PF('dlg2').show();" update="comentario" />
+				</p:contextMenu>
+				<p:dataTable class="table table-striped" var="avaliacao"
+					id="tableavaliacoes"
+					selection="#{timeLineManager.avaliacaoSelecionada}"
+					selectionMode="single" value="#{timeLineManager.timeLine}"
+					rowKey="#{avaliacao.id}" styleClass="table table_responsive"
+					reflow="true" rows="5" paginator="true"
+					emptyMessage="Nenhuma avaliação realizada."
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+					<p:column style="width:80%;" headerText="Comentários Moderados">
+						<h:outputText value="#{avaliacao.comentario}" style="center" />
+					</p:column>
+				</p:dataTable>
+				<!--Modal-->
+				<p:dialog header="Avaliação Selecionada" widgetVar="dlg2"
+					modal="true" height="300">
+					<h:outputText id="comentario"
+						value="#{timeLineManager.avaliacaoSelecionada.comentario}" />
+				</p:dialog>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

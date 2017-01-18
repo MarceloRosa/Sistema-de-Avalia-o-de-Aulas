@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+
+/*1 - Configuracoes de posicionamento de menus*/
+.ui-tabmenu .ui-tabmenu-nav.ui-widget-header {
+    padding: 0px 0px;
+}
+/*1.1 - tamanho da fonte do menu*/
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
+	font-size: 12px;
+}
+/*1.2 - Configuracao de posicionamento de menus em telas pequenas*/
+@media screen and (max-width: 656px) {
+	.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
+		right: 8px;
+		width: 100%;
+	}
+}
+/*Fim das configuracoes de posicionamento de menus*/
+

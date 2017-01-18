@@ -1,0 +1,9 @@
+============================================================================
+Lista referencial de soluções para alguns problemas ocorridos neste projeto
+============================================================================
+
+#1 - Relacionado a bootstrap
+http://stackoverflow.com/questions/14271825/centering-a-twitter-bootstrap-button
+http://blog.hatemalimam.com/jsf-and-twitter-bootstrap-integration/
+http://stackoverflow.com/questions/11988415/what-is-the-jsf-resource-library-for-and-how-should-it-be-used
+http://www.telegraphicsinc.com/2013/07/how-to-use-animate-css/

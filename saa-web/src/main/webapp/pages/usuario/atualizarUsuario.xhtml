@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_login.xhtml">
+	<ui:define name="content">
+
+		<h:form id="formCadUsuario">
+			<h2>Atualiza Senha</h2>
+			<p:separator />
+			<br />
+			<!-- Painel Login -->
+			<h:panelGrid id="gridUser" columns="3">
+				<h:outputLabel value="#{messages['atualizaSenha.novasenha']} " for="newpass" />
+				<p:password id="newpass" value="#{loginManager.senha}"
+					feedback="true" inline="true" goodLabel="Media" weakLabel="Fraca"
+					strongLabel="Forte" required="true"
+					requiredMessage="#{messages['msg.required']}" />
+				<p:message for="newpass" />
+
+				<h:outputLabel value="#{messages['atualizaSenha.confirma']}: " for="confirma" />
+				<p:password id="confirma" value="#{loginManager.confirmaSenha}" required="true" requiredMessage="#{messages['msg.required']}"/>
+			</h:panelGrid>
+
+			<h:panelGrid id="gridButtons" columns="2">
+				<p:commandButton value="#{messages['atualizaSenha.bt_confirmar']}"
+					action="#{loginManager.alteraSenha}" ajax="false" />
+				<p:commandButton value="#{messages['atualizaSenha.bt_cancelar']}" />
+			</h:panelGrid>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

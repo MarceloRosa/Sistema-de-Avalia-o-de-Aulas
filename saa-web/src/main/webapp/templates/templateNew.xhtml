@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>SAA - Sistema de Avaliação de Aulas</title>
+	<link  href="#{resource['imgs/icone-avaliacoes.png']}" rel="shortcut icon" type="image/x-icon" />
+	<h:outputStylesheet name="css/bootstrap.css" />
+	<h:outputStylesheet name="css/templateCustomize.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+<h:body>
+	<h:panelGroup id="page" layout="block">
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/templates/headerNew.xhtml" />
+			</ui:insert>
+		</div>
+		<h:panelGroup id="container" layout="block">
+			<div id="sidebar">
+				<ui:insert name="sidebar">
+					<ui:include src="/templates/menuNew.xhtml" />
+				</ui:insert>
+			</div>
+			<h:panelGroup id="content" layout="block">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<ui:insert name="content" />
+			</h:panelGroup>
+		</h:panelGroup>
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/templates/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</h:panelGroup>
+</h:body>	
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template_login.xhtml">
+
+	<ui:define name="metatag">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</ui:define>
+	<ui:define name="content">
+		<div id="wrapper">
+
+			<h:form id="login-form" class="login-form">
+
+				<div class="header">
+					<h1>Saa</h1>
+					<span>#{messages['login.welcome']}</span>
+				</div>
+
+				<div class="content">
+					<p:inputText id="username" class="input username" value="#{loginManager.email}"
+						placeholder="#{messages['login.email']}: exemplo@saa.com"/>
+					<div class="user-icon" />
+					<p:password id="password" class="input password" value="#{loginManager.senha}"
+						placeholder="#{messages['login.pwd']}" />
+					<div class="pass-icon" />
+				</div>
+
+				<div class="footer">
+					<h:commandButton id="login" value="#{messages['login.bt_entrar']}" class="button" action="#{loginManager.loggar}" />
+					<h:commandButton id="register" value="#{messages['login.lk_register']}" class="register" action="#{cadUsuarioManager.preparaCadastro}"/>
+				</div>
+
+			</h:form>
+		</div>
+		<div class="gradient"></div>
+	</ui:define>
+</ui:composition>

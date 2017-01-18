@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<h:form>
+		<div id="menu" class="menu">
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">SAA Web</a>
+				</div>
+				<ul class="nav navbar-nav">
+
+					<li><h:commandLink id="dashboardAluno"
+							rendered="#{segurancaTO.usuario.maxPapel == 'ALUNO'}"
+							action="#{dashboardAlunoManager.preparaDashboard}">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Dashboard</h:commandLink></li>
+							
+					<li><h:commandLink id="dashboardProf"
+							rendered="#{segurancaTO.usuario.maxPapel == 'PROFESSOR'}"
+							action="#{listaTurmaManager.preparaListTurma}">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Dashboard</h:commandLink></li>
+
+					<!-- <li><h:commandLink id="perfil">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Perfil
+					</h:commandLink></li> -->
+
+					<li><h:commandLink id="sair" action="#{menuMB.sair}">
+							<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+						Sair</h:commandLink></li>
+				</ul>
+			</div>
+			</nav>
+		</div>
+	</h:form>
+</f:view>
+</html>
+
