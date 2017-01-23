@@ -20,6 +20,8 @@ public class Turma{
 	
 	private Long professorId; 
 	
+	private List<Integer> alunos;
+	
 	
 	
 	
@@ -108,6 +110,18 @@ public class Turma{
 
 	public void setProfessorId(Long professorId) {
 		this.professorId = professorId;
+	}
+
+
+
+	public List<Integer> getAlunos() {
+		return alunos;
+	}
+
+
+
+	public void setAlunos(List<Integer> alunos) {
+		this.alunos = alunos;
 	}
 	
 
